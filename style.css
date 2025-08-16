@@ -3,6 +3,7 @@
 	--text-color: #000000
 }
 
+
 body {
 	background-color: var(--bg-color);
 	color: var(--text-color);
@@ -17,6 +18,22 @@ html, body {
 	margin: 0;
 	display: flex;
 	flex-direction: column;
+}
+
+.logo-header{
+	max-width: 620px;
+	height: auto;
+	display: block;
+	margin: 0 auto 20px;
+}
+
+.logo-link{
+	display: inline-block;
+	text-decoration: none;
+}
+
+.logo-link:hover{
+	opacity: 0.85;
 }
 
 .page-content {

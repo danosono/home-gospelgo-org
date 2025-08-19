@@ -3,19 +3,32 @@ name: "Notify Discord on Push to Main"
 on:
   push:
     branches:
-      - main  # or replace with your deploy branch
+      - main
 
 jobs:
   discord-notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Notify Discord with commit details
+      - name: Notify Discord with commit embed
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-          COMMIT_AUTHOR: ${{ github.event.head_commit.author.name }}
+          COMMIT_URL: ${{ github.event.head_commit.url }}
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d "{\"content\": \"🚀 Gospel Go (https://gospelgo.org) was updated and is deploying via Netlify!\n**Author**: $COMMIT_AUTHOR\n**Message**: $COMMIT_MESSAGE\"}" \
+               -d "$(jq -n \
+                 --arg msg "$COMMIT_MESSAGE" \
+                 --arg url "$COMMIT_URL" \
+                 --arg timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+                 '{
+                   "embeds": [
+                     {
+                       "title": "🚀 Gospel Go deployed!",
+                       "description": "**Message:** \($msg)\n[🌐 Visit site](https://gospelgo.org) | [🔗 View commit](\($url))",
+                       "color": 3066993,
+                       "timestamp": $timestamp
+                     }
+                   ]
+                 }')" \
                $DISCORD_WEBHOOK

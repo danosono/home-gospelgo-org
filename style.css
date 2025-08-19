@@ -96,3 +96,18 @@ button {
 	font-size: 1rem;
 	cursor: pointer;
 }
+
+.highlight {
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+  margin: 2em 0;
+}
+.highlight::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #444;
+  margin: 0.5em auto 0;
+}

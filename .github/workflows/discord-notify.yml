@@ -24,7 +24,7 @@ jobs:
                  '{
                    "embeds": [
                      {
-                       "title": "🚀 Gospel Go deployed!",
+                       "title": "🚀 Gospel Go Website deployed (update)!",
                        "description": "**Message:** \($msg)\n[🌐 Visit site](https://gospelgo.org) | [🔗 View commit](\($url))",
                        "color": 3066993,
                        "timestamp": $timestamp
